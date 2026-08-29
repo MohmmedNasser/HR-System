@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained()->cascadeOnDelete(); //الموظف
             $table->date('work_date'); //تاريخ العمل
-            $table->time('check_in')->nullable(); //وقت الحضور
-            $table->time('check_out')->nullable(); //وقت الانصراف
+            $table->time('clock_in')->nullable(); //وقت الحضور
+            $table->time('clock_out')->nullable(); //وقت الانصراف
             $table->string('status')->default('present'); //present, late, absent //الحالة
             $table->timestamps(); //تاريخ إنشاء الحضور
 
