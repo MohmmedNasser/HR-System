@@ -16,19 +16,27 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import type {
-    Position,
-    Paginated,
-    SearchFilters,
-    Department,
-} from '@/types/hr';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import type { Position, Paginated, Department } from '@/types/hr';
 import AddPosition from './add';
 import EditPosition from './edit';
+
+interface Filters {
+    search?: string;
+    department?: string;
+}
 
 interface DepartmentsIndexProps {
     positions: Paginated<Position>;
     departments: Pick<Department, 'id' | 'name'>[];
-    filters: SearchFilters;
+    filters: Filters;
 }
 
 export default function Positions({
@@ -45,6 +53,20 @@ export default function Positions({
     const [deletingPosition, setDeletingPosition] = useState<Position | null>(
         null,
     );
+
+    const applyFilter = (next: Filters) => {
+        router.get(
+            '/positions',
+            {
+                search: search || undefined,
+                department: next.department || undefined,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            },
+        );
+    };
 
     const submitSearch = (e: FormEvent) => {
         e.preventDefault();
@@ -83,7 +105,7 @@ export default function Positions({
             onSuccess: () => {
                 setShowDelete(false);
                 setDeletingPosition(null);
-                toast.success('Department deleted successfully');
+                toast.success('Position deleted successfully');
             },
         });
     };
@@ -104,11 +126,11 @@ export default function Positions({
                         Add Position
                     </Button>
                 </div>
-                <div>
+                <div className="mb-4 flex flex-wrap gap-2">
                     <form
                         action=""
                         onSubmit={(e) => submitSearch(e)}
-                        className="mb-4 flex gap-2"
+                        className="flex gap-2"
                     >
                         <div className="relative max-w-xs flex-1">
                             <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -130,6 +152,32 @@ export default function Positions({
                             </Button>
                         )}
                     </form>
+
+                    <Select
+                        value={filters.department ?? ''}
+                        onValueChange={(value) =>
+                            applyFilter({ ...filters, department: value })
+                        }
+                    >
+                        <SelectTrigger className="w-48">
+                            <SelectValue placeholder="All Departments..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="">
+                                    All Departments
+                                </SelectItem>
+                                {departments.map((department) => (
+                                    <SelectItem
+                                        key={department.id}
+                                        value={department.id.toString()}
+                                    >
+                                        {department.name}
+                                    </SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
 
                 {positions.data.length === 0 ? (
