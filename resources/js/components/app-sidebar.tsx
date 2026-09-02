@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     BookOpen,
     Briefcase,
@@ -20,9 +20,13 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import type { NavItem } from '@/types';
+import type { NavItem, Auth } from '@/types';
 
-const mainNavItems: NavItem[] = [
+type Role = Auth['user']['role'];
+
+type GatedNavItem = NavItem & { roles?: Role[] };
+
+const mainNavItems: GatedNavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
@@ -32,11 +36,13 @@ const mainNavItems: NavItem[] = [
         title: 'Departments',
         href: '/departments',
         icon: Building2,
+        roles: ['admin', 'hr'],
     },
     {
         title: 'Positions',
         href: '/positions',
         icon: Briefcase,
+        roles: ['admin', 'hr'],
     },
 ];
 
@@ -54,6 +60,15 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { auth } = usePage<{ auth: Auth }>().props;
+    const role = auth.user.role;
+
+    const items = mainNavItems.filter(
+        (item) => !item.roles || item.roles.includes(role),
+    );
+
+    console.log(role);
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -69,7 +84,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={items} />
             </SidebarContent>
 
             <SidebarFooter>

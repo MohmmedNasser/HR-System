@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
+use Illuminate\Support\Facades\Storage;
 
-#[Fillable(['user_id', 'first_name', 'last_name', 'email', 'phone','position_id', 'department_id', 'manager_id', 'hire_date', 'employment_status', 'salary', 'avatar_path', 'address'])]
+#[Fillable(['user_id', 'first_name', 'last_name', 'email', 'phone', 'position_id', 'department_id', 'manager_id', 'hire_date', 'employment_status', 'salary', 'avatar_path', 'address'])]
 class Employee extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployeeFactory> */
@@ -29,7 +30,13 @@ class Employee extends Model
         );
     }
 
-    public function user() {
+    protected function avatarUrl(): CastsAttribute
+    {
+        return CastsAttribute::make(fn(): ?string => $this->avatar_path ? Storage::url($this->avatar_path) : null);
+    }
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -76,5 +83,4 @@ class Employee extends Model
     {
         return $this->hasMany(Payslip::class);
     }
-
 }
