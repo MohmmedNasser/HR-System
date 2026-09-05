@@ -5,6 +5,7 @@ import {
     Building2,
     FolderGit2,
     LayoutGrid,
+    Users,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
@@ -43,6 +44,12 @@ const mainNavItems: GatedNavItem[] = [
         href: '/positions',
         icon: Briefcase,
         roles: ['admin', 'hr'],
+    },
+    {
+        title: 'Employees',
+        href: '/employees',
+        icon: Users,
+        roles: ['admin', 'hr', 'manager'],
     },
 ];
 

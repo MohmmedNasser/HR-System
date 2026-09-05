@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
 use Illuminate\Support\Facades\Storage;
 
 #[Fillable(['user_id', 'first_name', 'last_name', 'email', 'phone', 'position_id', 'department_id', 'manager_id', 'hire_date', 'employment_status', 'salary', 'avatar_path', 'address'])]
+#[Appends(['full_name', 'avatar_url'])]
 class Employee extends Model
 {
     /** @use HasFactory<\Database\Factories\EmployeeFactory> */
