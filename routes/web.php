@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:admin,hr,manager')->group(function () {
         Route::get('employees', [EmployeeController::class, 'index'])->name('employees.index');
         Route::get('employees/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
+    });
+
+    Route::middleware('role:admin,hr')->group(function () {
         Route::post('employees', [EmployeeController::class, 'store'])->name('employees.store');
         Route::patch('employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
         Route::delete('employees/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
+    });
+
+    Route::middleware('role:admin,hr')->group(function () {
+        Route::get('leave-types', [LeaveTypeController::class, 'index'])->name('leave-types.index');
+        Route::post('leave-types', [LeaveTypeController::class, 'store'])->name('leave-types.store');
+        Route::patch('leave-types/{leaveType}', [LeaveTypeController::class, 'update'])->name('leave-types.update');
+        Route::delete('leave-types/{leaveType}', [LeaveTypeController::class, 'destroy'])->name('leave-types.destroy');
     });
 });
 

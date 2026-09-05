@@ -3,6 +3,7 @@ import {
     BookOpen,
     Briefcase,
     Building2,
+    CalendarCog,
     FolderGit2,
     LayoutGrid,
     Users,
@@ -50,6 +51,12 @@ const mainNavItems: GatedNavItem[] = [
         href: '/employees',
         icon: Users,
         roles: ['admin', 'hr', 'manager'],
+    },
+    {
+        title: 'Leave Types',
+        href: '/leave-types',
+        icon: CalendarCog,
+        roles: ['admin', 'hr'],
     },
 ];
 

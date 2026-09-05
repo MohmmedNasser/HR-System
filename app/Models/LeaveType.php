@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
-#[Fillable(['name', 'default_days_per_year','is_paid'])]
+#[Fillable(['name', 'default_days_per_year', 'is_paid'])]
 class LeaveType extends Model
 {
     /** @use HasFactory<\Database\Factories\LeaveTypeFactory> */
@@ -25,9 +25,8 @@ class LeaveType extends Model
         return $this->hasMany(LeaveRequest::class);
     }
 
-    public function leaveBalances()
+    public function balances()
     {
         return $this->hasMany(LeaveBalance::class);
     }
-
 }
