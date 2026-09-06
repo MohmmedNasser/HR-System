@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use Database\Factories\LeaveTypeFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable(['name', 'default_days_per_year', 'is_paid'])]
 class LeaveType extends Model
 {
-    /** @use HasFactory<\Database\Factories\LeaveTypeFactory> */
+    /** @use HasFactory<LeaveTypeFactory> */
     use HasFactory;
-
 
     protected function casts(): array
     {

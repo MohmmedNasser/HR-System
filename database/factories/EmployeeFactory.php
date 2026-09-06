@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,8 +29,8 @@ class EmployeeFactory extends Factory
             'last_name' => $lastName,
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'department_id' => \App\Models\Department::factory(),
-            'position_id' => \App\Models\Position::factory(),
+            'department_id' => Department::factory(),
+            'position_id' => Position::factory(),
             'manager_id' => null,
             'hire_date' => fake()->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
             'employment_status' => 'active',

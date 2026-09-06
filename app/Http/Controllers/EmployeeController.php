@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
-use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -39,9 +39,9 @@ class EmployeeController extends Controller
 
         return inertia('employees/index', [
             'employees' => $query->paginate(12)->withQueryString(),
-            "departments" => Department::orderBy('name')->get(['id', 'name']),
-            "positions" => Position::orderBy('title')->get(['id', 'title']),
-            "managers" => Employee::orderBy('first_name')->get(['id', 'first_name', 'last_name']),
+            'departments' => Department::orderBy('name')->get(['id', 'name']),
+            'positions' => Position::orderBy('title')->get(['id', 'title']),
+            'managers' => Employee::orderBy('first_name')->get(['id', 'first_name', 'last_name']),
             'filters' => $request->only(['search', 'department', 'status']),
         ]);
     }
@@ -55,13 +55,12 @@ class EmployeeController extends Controller
             'manager',
             'leaveBalances.leaveType',
             'leaveRequests.leaveType',
-            'attendances' => fn($q) => $q->latest('work_date')->limit(10),
-            'payslips' => fn($q) => $q->latest('period_end')->limit(6),
+            'attendances' => fn ($q) => $q->latest('work_date')->limit(10),
+            'payslips' => fn ($q) => $q->latest('period_end')->limit(6),
         ]);
 
-
         return Inertia::render('employees/show', [
-            'employee' => $employee
+            'employee' => $employee,
         ]);
     }
 
@@ -112,23 +111,22 @@ class EmployeeController extends Controller
         return to_route('employees.index');
     }
 
-
     public function validateEmployee(Request $request, ?Employee $employee = null)
     {
         $data = $request->validate([
-            "first_name" => ["required", "string", "max:255"],
-            "last_name" => ["required", "string", "max:255"],
-            "email" => ["required", "email", "max:255",  Rule::unique('employees', 'email')
-                ->ignore($employee?->id),],
-            "phone" => ["required", "string", "max:50"],
-            "department_id" => ["nullable", "exists:departments,id"],
-            "position_id" => ["nullable", "exists:positions,id"],
-            "manager_id" => ["nullable", "exists:employees,id"],
-            "hire_date" => ["required", "date"],
-            "employment_status" => ["required", "in:active,on_leave,terminated"],
-            "salary" => ["required", "numeric", "min:0"],
-            "address" => ["nullable", "string"],
-            "avatar" => ["nullable", "image", "max:2048"],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255',  Rule::unique('employees', 'email')
+                ->ignore($employee?->id), ],
+            'phone' => ['required', 'string', 'max:50'],
+            'department_id' => ['nullable', 'exists:departments,id'],
+            'position_id' => ['nullable', 'exists:positions,id'],
+            'manager_id' => ['nullable', 'exists:employees,id'],
+            'hire_date' => ['required', 'date'],
+            'employment_status' => ['required', 'in:active,on_leave,terminated'],
+            'salary' => ['required', 'numeric', 'min:0'],
+            'address' => ['nullable', 'string'],
+            'avatar' => ['nullable', 'image', 'max:2048'],
         ]);
 
         return $data;

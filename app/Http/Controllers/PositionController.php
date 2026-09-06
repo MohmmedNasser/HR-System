@@ -6,13 +6,10 @@ use App\Models\Department;
 use App\Models\Position;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Response;
-
 
 class PositionController extends Controller
 {
-
     public function index(Request $request): Response
     {
 
@@ -35,7 +32,7 @@ class PositionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'department_id' => 'required|exists:departments,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -48,7 +45,7 @@ class PositionController extends Controller
 
     public function update(Request $request, Position $position): RedirectResponse
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'department_id' => 'required|exists:departments,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',

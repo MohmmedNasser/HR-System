@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('positions', function (Blueprint $table) { //المسميات الوظيفية
+        Schema::create('positions', function (Blueprint $table) { // المسميات الوظيفية
             $table->id();
-            $table->foreignId('department_id')->constrained()->cascadeOnDelete(); //القسم
-            $table->string('title'); //المسمى الوظيفي
-            $table->text('description')->nullable(); //الوصف
+            $table->foreignId('department_id')->constrained()->cascadeOnDelete(); // القسم
+            $table->string('title'); // المسمى الوظيفي
+            $table->text('description')->nullable(); // الوصف
             $table->timestamps();
         });
     }

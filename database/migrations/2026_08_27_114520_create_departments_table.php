@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) { //الاقسام
+        Schema::create('departments', function (Blueprint $table) { // الاقسام
             $table->id();
-            $table->string('name')->unique(); //اسم القسم
-            $table->string('code', 10)->nullable(); //رمز القسم
-            $table->text('description')->nullable(); //وصف القسم
+            $table->string('name')->unique(); // اسم القسم
+            $table->string('code', 10)->nullable(); // رمز القسم
+            $table->text('description')->nullable(); // وصف القسم
             $table->timestamps();
         });
     }

@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payslips', function (Blueprint $table) { //الرواتب
+        Schema::create('payslips', function (Blueprint $table) { // الرواتب
             $table->id();
-            $table->foreignId('employee_id')->constrained()->cascadeOnDelete(); //الموظف
-            $table->date('period_start'); //بداية الفترة
-            $table->date('period_end'); //نهاية الفترة
-            $table->decimal('gross_pay', 12, 2); //إجمالي الأجر
-            $table->decimal('deductions', 12, 2)->default(0); //الخصومات
-            $table->decimal('net_pay', 12, 2); //صافي الدفع
-            $table->timestamp('issued_at')->nullable(); //تاريخ الإصدار
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete(); // الموظف
+            $table->date('period_start'); // بداية الفترة
+            $table->date('period_end'); // نهاية الفترة
+            $table->decimal('gross_pay', 12, 2); // إجمالي الأجر
+            $table->decimal('deductions', 12, 2)->default(0); // الخصومات
+            $table->decimal('net_pay', 12, 2); // صافي الدفع
+            $table->timestamp('issued_at')->nullable(); // تاريخ الإصدار
             $table->timestamps();
         });
     }

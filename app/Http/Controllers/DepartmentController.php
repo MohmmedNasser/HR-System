@@ -25,16 +25,15 @@ class DepartmentController extends Controller
             });
         }
 
-
         return inertia('departments/index', [
             'departments' => $query->paginate(10)->withQueryString(),
-            'filters' => $request->only(['search'])
+            'filters' => $request->only(['search']),
         ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'name' => 'required|string|max:255|unique:departments,name',
             'code' => 'nullable|string|max:10',
             'description' => 'nullable|string',
@@ -47,7 +46,7 @@ class DepartmentController extends Controller
 
     public function update(Request $request, Department $department): RedirectResponse
     {
-        $data =  $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:255', Rule::unique('departments', 'name')->ignore($department->id)],
             'code' => 'nullable|string|max:10',
             'description' => 'nullable|string',

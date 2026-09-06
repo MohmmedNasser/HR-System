@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-
         // ── Login accounts, one per role ────────────────────────────────────
         $admin = User::factory()->create([
             'name' => 'Alex Admin',
@@ -32,13 +31,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-
         $hr = User::factory()->create([
             'name' => 'Hana HR',
             'email' => 'hr@hr.test',
             'role' => 'hr',
         ]);
-
 
         $managerUser = User::factory()->create([
             'name' => 'Mia Manager',
@@ -52,13 +49,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'employee',
         ]);
 
-
-
         // ── Leave types ─────────────────────────────────────────────────────
         $annual = LeaveType::create([
             'name' => 'Annual Leave',
             'default_days_per_year' => 20,
-            'is_paid' => true
+            'is_paid' => true,
         ]);
 
         $sick = LeaveType::create(['name' => 'Sick Leave', 'default_days_per_year' => 10, 'is_paid' => true]);
@@ -74,7 +69,6 @@ class DatabaseSeeder extends Seeder
             'Finance' => ['Accountant', 'Financial Analyst', 'Finance Manager'],
             'Marketing' => ['Content Strategist', 'Marketing Specialist'],
         ];
-
 
         $positions = collect();
         $departments = collect();
@@ -95,7 +89,6 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-
         // ── A few managers first, so staff can report to them ───────────────
 
         $managers = collect();
@@ -113,7 +106,6 @@ class DatabaseSeeder extends Seeder
             ]));
         }
 
-
         // ── Link the demo employee account to a real employee record ────────
         Employee::factory()->create([
             'user_id' => $employeeUser->id,
@@ -124,7 +116,6 @@ class DatabaseSeeder extends Seeder
             'position_id' => $positions->first()->id,
             'manager_id' => $managers->first()->id,
         ]);
-
 
         // ── The rest of the workforce ───────────────────────────────────────
         // Passing the foreign keys in explicitly overrides the factory defaults,
@@ -142,8 +133,6 @@ class DatabaseSeeder extends Seeder
 
         // ── Leave balances, requests, attendance and payslips per employee ──
         $year = (int) now()->year;
-
-
 
         Employee::all()->each(function (Employee $employee) use ($leaveTypes, $hr, $year) {
             foreach ($leaveTypes as $type) {

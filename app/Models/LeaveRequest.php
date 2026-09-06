@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\LeaveRequestFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'employee_id',
@@ -16,13 +17,12 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
     'status',
     'reviewed_by',
     'reviewed_at',
-    'review_note'
+    'review_note',
 ])]
 class LeaveRequest extends Model
 {
-    /** @use HasFactory<\Database\Factories\LeaveRequestFactory> */
+    /** @use HasFactory<LeaveRequestFactory> */
     use HasFactory;
-
 
     protected $casts = [
         'start_date' => 'date',
@@ -44,6 +44,4 @@ class LeaveRequest extends Model
     {
         return $this->belongsTo(User::class, 'reviewed_by');
     }
-
-
 }

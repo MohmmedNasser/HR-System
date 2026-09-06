@@ -31,9 +31,7 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-
     public const ROLES = ['admin', 'hr', 'manager', 'employee'];
-
 
     /**
      * Get the attributes that should be cast.
@@ -48,10 +46,8 @@ class User extends Authenticatable
         ];
     }
 
-
     public function hasRole(string ...$roles): bool
     {
         return in_array($this->role, $roles, true);
     }
-
 }

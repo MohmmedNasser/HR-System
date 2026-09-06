@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
+use Database\Factories\EmployeeFactory;
 use Illuminate\Database\Eloquent\Attributes\Appends;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute as CastsAttribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 #[Fillable(['user_id', 'first_name', 'last_name', 'email', 'phone', 'position_id', 'department_id', 'manager_id', 'hire_date', 'employment_status', 'salary', 'avatar_path', 'address'])]
 #[Appends(['full_name', 'avatar_url'])]
 class Employee extends Model
 {
-    /** @use HasFactory<\Database\Factories\EmployeeFactory> */
+    /** @use HasFactory<EmployeeFactory> */
     use HasFactory;
-
 
     protected function casts(): array
     {
@@ -28,13 +28,13 @@ class Employee extends Model
     protected function fullName(): CastsAttribute
     {
         return CastsAttribute::make(
-            get: fn() => "{$this->first_name} {$this->last_name}",
+            get: fn () => "{$this->first_name} {$this->last_name}",
         );
     }
 
     protected function avatarUrl(): CastsAttribute
     {
-        return CastsAttribute::make(fn(): ?string => $this->avatar_path ? Storage::url($this->avatar_path) : null);
+        return CastsAttribute::make(fn (): ?string => $this->avatar_path ? Storage::url($this->avatar_path) : null);
     }
 
     public function user()
@@ -52,7 +52,6 @@ class Employee extends Model
         return $this->belongsTo(Department::class);
     }
 
-
     public function manager()
     {
         return $this->belongsTo(Employee::class, 'manager_id');
@@ -63,12 +62,10 @@ class Employee extends Model
         return $this->hasMany(Employee::class, 'manager_id');
     }
 
-
     public function leaveRequests()
     {
         return $this->hasMany(LeaveRequest::class);
     }
-
 
     public function leaveBalances()
     {
@@ -79,7 +76,6 @@ class Employee extends Model
     {
         return $this->hasMany(Attendance::class);
     }
-
 
     public function payslips()
     {

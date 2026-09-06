@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\AttendanceFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'employee_id',
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 ])]
 class Attendance extends Model
 {
-    /** @use HasFactory<\Database\Factories\AttendanceFactory> */
+    /** @use HasFactory<AttendanceFactory> */
     use HasFactory;
 
     protected $casts = [
@@ -29,5 +29,4 @@ class Attendance extends Model
     {
         return $this->belongsTo(Employee::class);
     }
-
 }

@@ -3,7 +3,9 @@ import {
     BookOpen,
     Briefcase,
     Building2,
+    CalendarClock,
     CalendarCog,
+    ClipboardList,
     FolderGit2,
     LayoutGrid,
     Users,
@@ -57,6 +59,11 @@ const mainNavItems: GatedNavItem[] = [
         href: '/leave-types',
         icon: CalendarCog,
         roles: ['admin', 'hr'],
+    },
+    {
+        title: 'Leave Requests',
+        href: '/leave-requests',
+        icon: CalendarClock,
     },
 ];
 

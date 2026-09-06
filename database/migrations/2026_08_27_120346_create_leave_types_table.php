@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leave_types', function (Blueprint $table) { //أنواع الإجازات
+        Schema::create('leave_types', function (Blueprint $table) { // أنواع الإجازات
             $table->id();
-            $table->string('name')->unique(); //اسم الإجازة
-            $table->unsignedSmallInteger("default_days_per_year")->default(0); //عدد الأيام الافتراضية في السنة
-            $table->boolean("is_paid")->default(true); //هل الإجازة مدفوعة
+            $table->string('name')->unique(); // اسم الإجازة
+            $table->unsignedSmallInteger('default_days_per_year')->default(0); // عدد الأيام الافتراضية في السنة
+            $table->boolean('is_paid')->default(true); // هل الإجازة مدفوعة
             $table->timestamps();
         });
     }

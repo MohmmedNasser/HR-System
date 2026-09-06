@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\PayslipFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 #[Fillable([
     'employee_id',
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 ])]
 class Payslip extends Model
 {
-    /** @use HasFactory<\Database\Factories\PayslipFactory> */
+    /** @use HasFactory<PayslipFactory> */
     use HasFactory;
 
     protected $casts = [
@@ -33,5 +34,4 @@ class Payslip extends Model
     {
         return $this->belongsTo(Employee::class);
     }
-
 }

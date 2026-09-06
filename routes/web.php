@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\PositionController;
 use Illuminate\Support\Facades\Route;
@@ -40,8 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('leave-types/{leaveType}', [LeaveTypeController::class, 'update'])->name('leave-types.update');
         Route::delete('leave-types/{leaveType}', [LeaveTypeController::class, 'destroy'])->name('leave-types.destroy');
     });
+
+    Route::get('leave-requests', [LeaveRequestController::class, 'index'])->name('leave-requests.index');
+    Route::post('leave-requests', [LeaveRequestController::class, 'store'])->name('leave-requests.store');
+
+    Route::middleware('role:admin,hr,manager')->group(function () {
+        Route::patch('leave-requests/{leaveRequest}/approve', [LeaveRequestController::class, 'approve'])->name('leave-requests.approve');
+        Route::patch('leave-requests/{leaveRequest}/reject', [LeaveRequestController::class, 'reject'])->name('leave-requests.reject');
+    });
 });
 
-
-
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

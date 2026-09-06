@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leave_requests', function (Blueprint $table) { //طلبات الإجازات
+        Schema::create('leave_requests', function (Blueprint $table) { // طلبات الإجازات
             $table->id();
-            $table->foreignId('employee_id')->constrained()->cascadeOnDelete(); //الموظف
-            $table->foreignId('leave_type_id')->constrained()->cascadeOnDelete(); //نوع الإجازة
-            $table->date('start_date'); //تاريخ بداية الإجازة
-            $table->date('end_date'); //تاريخ نهاية الإجازة
-            $table->unsignedSmallInteger('days'); //عدد أيام الإجازة
-            $table->text('reason')->nullable(); //سبب الإجازة
-            $table->string('status')->default('pending'); //pending, approved, rejected //الحالة
-            $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete(); //تمت المراجعة بواسطة
-            $table->timestamp('reviewed_at')->nullable(); //تمت المراجعة في
-            $table->text('review_note')->nullable(); //ملاحظات المراجعة
+            $table->foreignId('employee_id')->constrained()->cascadeOnDelete(); // الموظف
+            $table->foreignId('leave_type_id')->constrained()->cascadeOnDelete(); // نوع الإجازة
+            $table->date('start_date'); // تاريخ بداية الإجازة
+            $table->date('end_date'); // تاريخ نهاية الإجازة
+            $table->unsignedSmallInteger('days'); // عدد أيام الإجازة
+            $table->text('reason')->nullable(); // سبب الإجازة
+            $table->string('status')->default('pending'); // pending, approved, rejected //الحالة
+            $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete(); // تمت المراجعة بواسطة
+            $table->timestamp('reviewed_at')->nullable(); // تمت المراجعة في
+            $table->text('review_note')->nullable(); // ملاحظات المراجعة
             $table->timestamps();
         });
     }

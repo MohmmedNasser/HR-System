@@ -308,6 +308,31 @@ export default function Employees({
                                 </div>
                             ))}
                         </div>
+
+                        {employees.last_page > 1 && (
+                            <div className="mt-4 flex justify-center gap-1">
+                                {employees.links.map((link, i) =>
+                                    link.url ? (
+                                        <Link
+                                            key={i}
+                                            href={link.url}
+                                            className={`rounded px-3 py-1.5 text-sm ${link.active ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                        />
+                                    ) : (
+                                        <span
+                                            key={i}
+                                            className="rounded px-3 py-1.5 text-sm opacity-40"
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                        />
+                                    ),
+                                )}
+                            </div>
+                        )}
                     </>
                 )}
 
