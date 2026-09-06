@@ -6,6 +6,7 @@ import {
     CalendarClock,
     CalendarCog,
     ClipboardList,
+    Clock,
     FolderGit2,
     LayoutGrid,
     Users,
@@ -64,6 +65,11 @@ const mainNavItems: GatedNavItem[] = [
         title: 'Leave Requests',
         href: '/leave-requests',
         icon: CalendarClock,
+    },
+    {
+        title: 'Attendance',
+        href: '/attendance',
+        icon: Clock,
     },
 ];
 

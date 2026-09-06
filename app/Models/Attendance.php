@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable([
     'employee_id',
     'work_date',
-    'check_in',
-    'check_out',
+    'clock_in',
+    'clock_out',
     'status',
 ])]
 class Attendance extends Model
@@ -21,8 +21,8 @@ class Attendance extends Model
 
     protected $casts = [
         'work_date' => 'date',
-        'check_in' => 'datetime',
-        'check_out' => 'datetime',
+        'clock_in' => 'datetime',
+        'clock_out' => 'datetime',
     ];
 
     public function employee()
