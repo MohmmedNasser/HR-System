@@ -14,3 +14,8 @@ export function toUrl(url: NonNullable<InertiaLinkProps['href']>): string {
 export function time(value: string | null) {
     return value ? value.slice(11, 16) : '—';
 }
+
+export function money(value: string) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Number(value));
+}
+

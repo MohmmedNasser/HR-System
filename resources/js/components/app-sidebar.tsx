@@ -9,6 +9,7 @@ import {
     Clock,
     FolderGit2,
     LayoutGrid,
+    Receipt,
     Users,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -75,6 +76,13 @@ const mainNavItems: GatedNavItem[] = [
         title: 'Timesheets',
         href: '/attendance/timesheets',
         icon: ClipboardList,
+        roles: ['admin', 'hr', 'manager'],
+    },
+    {
+        title: 'Payslips',
+        href: '/payslips',
+        icon: Receipt,
+        roles: ['admin', 'hr'],
     },
 ];
 
