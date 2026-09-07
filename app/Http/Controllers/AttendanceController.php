@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
@@ -12,12 +13,12 @@ class AttendanceController extends Controller
     {
 
         $employee = $request->user()->employee;
-        $today = $employee->attendances()->whereDate('work_date', today())->first();
+        $today = $employee?->attendances()->whereDate('work_date', today())->first();
 
-        $recent = $employee->attendances()
+        $recent = $employee ? $employee->attendances()
             ->latest('work_date')
             ->take(10)
-            ->get() ?? collect();
+            ->get() : collect();
 
         return inertia('attendance/index', [
             'hasEmployee' => (bool) $employee,
@@ -76,5 +77,36 @@ class AttendanceController extends Controller
         abort_unless($employee, 403, 'Your account is not linked to an employee record.');
 
         return $employee;
+    }
+
+    public function timesheets(Request $request): Response
+    {
+        $date = $request->filled('date') ? Carbon::parse($request->input('date')) : today();
+
+        $record = Attendance::with('employee.department')
+            ->whereDate('work_date', $date)
+            ->get()
+            ->map(fn(Attendance $a) => [
+                'id' => $a->id,
+                'employee' => $a->employee?->full_name,
+                'department' => $a->employee?->department?->name,
+                'clock_in' => $a->clock_in?->format('H:i'),
+                'clock_out' => $a->clock_out?->format('H:i'),
+                'status' => $a->status,
+                'hours' => $a->clock_in && $a->clock_out
+                    ? round($a->clock_in->floatDiffInHours($a->clock_out), 1)
+                    : null,
+            ]);
+
+
+        return inertia('attendance/timesheets', [
+            'date' => $date->toDateString(),
+            'record' => $record,
+            'summary' => [
+                'present' => $record->where('status', 'present')->count(),
+                'late' => $record->where('status', 'late')->count(),
+                'total_hours' => round($record->sum('hours'), 1),
+            ],
+        ]);
     }
 }

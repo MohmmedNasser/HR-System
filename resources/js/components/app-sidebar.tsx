@@ -71,6 +71,11 @@ const mainNavItems: GatedNavItem[] = [
         href: '/attendance',
         icon: Clock,
     },
+    {
+        title: 'Timesheets',
+        href: '/attendance/timesheets',
+        icon: ClipboardList,
+    },
 ];
 
 const footerNavItems: NavItem[] = [
