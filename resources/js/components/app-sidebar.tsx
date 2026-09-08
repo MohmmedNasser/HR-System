@@ -7,6 +7,7 @@ import {
     CalendarCog,
     ClipboardList,
     Clock,
+    FileText,
     FolderGit2,
     LayoutGrid,
     Receipt,
@@ -82,6 +83,13 @@ const mainNavItems: GatedNavItem[] = [
         title: 'Payslips',
         href: '/payslips',
         icon: Receipt,
+        roles: ['admin', 'hr'],
+    },
+
+    {
+        title: 'Reports',
+        href: '/reports',
+        icon: FileText,
         roles: ['admin', 'hr'],
     },
 ];
